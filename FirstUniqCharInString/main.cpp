@@ -16,7 +16,8 @@ int main()
 int firstUniqChar(string s) {
     set<char> a = {}; 
 
-    for (char c : s) { 
+    for (int i = 0; i < s.length(); ++i) { 
+        char c = s[i]; 
         if (a.find(c) != a.end()) { 
             a.erase(a.find(c)); 
         }
