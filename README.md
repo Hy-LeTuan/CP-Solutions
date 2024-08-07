@@ -17,11 +17,11 @@ Common problem folders will be labeled directly with the problem name, for examp
 1. Each folder contains a description.md file that houses detailed description of the problem, the customary input constraints and a descriptive solution.
 2. The `main.cpp` file is the `C++` implementation of the solution.
 
-### 2. Codeforce contest
+### 2. Codeforces contest
 
 #### General information
 
-Codeforce contest folders will be labled with the format `CodeforcesContest_CONTEST-NUMBER`. For example, the folder `CodeforcesContest_1996` contains solutions to problems found in Codeforces contest number 1996.
+Codeforces contest folders will be labled with the format `CodeforcesContest_CONTEST-NUMBER`. For example, the folder `CodeforcesContest_1996` contains solutions to problems found in Codeforces contest number 1996.
 
 ### Content
 
