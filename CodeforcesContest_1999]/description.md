@@ -6,7 +6,7 @@
 
 ### Problems:
 
-A. A + B Again?
+## A. A + B Again?
 
 -   ### Description
     Given a two-digit positive integer n, find the sum of its digits.
@@ -28,7 +28,7 @@ A. A + B Again?
 
     First, we can get the integer as a string, so that we can loop through each of its digits. While looping through the digits, transform them from character to integer by subtracting them from the character '0'. Then add their value and we will have the answer.
 
-B. Card Game
+## B. Card Game
 
 -   ### Description
 
@@ -62,7 +62,7 @@ B. Card Game
 
     Based on these scenarios, we can implement a point counting system for Suneet and Slavic. If Suneet wins, we increase his score by 1, and vice versa for Slavic. If a round is a tie, we keep the score the same. After each scenario, if Suneet has more points than Slavic, he wins that game and we increase the number of games won by 1.
 
-C. Showering
+## C. Showering
 
 -   ### Description
 
@@ -95,3 +95,74 @@ C. Showering
     From that, we can calculate the maxium free time Alex has by taking start time of the next interval and minus the end time of the current interval. We also need to include Alex's freet ime from the start of the day to the first interval, and his free time from the last interval to the end of the day.
 
     Finally, we can check if the maximum free time he has is larger than the shower time. If it is larger, print yes, else, we print no.
+
+## D. Slavic's Exam
+
+-   ### Description
+
+    Slavic has a very tough exam and needs your help in order to pass it. Here is the question he is struggling with:
+
+    There exists a string s, which consists of lowercase English letters and possibly zero or more "?".
+
+    Slavic is asked to change each "?" to a lowercase English letter such that string t becomes a subsequence (not necessarily continuous) of the string s.
+
+    Output any such string, or say that it is impossible in case no string that respects the conditions exists.
+
+-   ### Input & Constraints
+
+    The first line contains a single integer T
+    $(1≤T≤104)$ — the number of test cases.
+
+    The first line of each test case contains a single string s ($1≤|s|≤2⋅105$, and s consists only of lowercase English letters and "?"-s) – the original string you have.
+
+    The second line of each test case contains a single string t
+    ($1≤\lvert t \rvert ≤ \lvert s \rvert$, and t consists only of lowercase English letters) – the string that should be a subsequence of string s.
+
+    The sum of $\lvert s \rvert$ over all test cases doesn't exceed $2⋅10^{5}$, where $\lvert x \rvert$ denotes the length of the string x.
+
+-   ### Output
+
+    For each test case, if no such string exists as described in the statement, output "NO" (without quotes).
+
+    Otherwise, output "YES" (without quotes). Then, output one line — the string that respects all conditions.
+
+    You can output "YES" and "NO" in any case (for example, strings "yEs", "yes", and "Yes" will be recognized as a positive response).
+
+    If multiple answers are possible, you can output any of them.
+
+-   ### Solution
+
+    The problems require us to turn the `?` character in string s to any random English letter so that it contains enough letter in `t` in a specific order. We can use a queue to maintian the specific character orders of `t` that must appear in `s`. After that, we loop through `s` and check if `t` is already in s. If it is, we can add the current character to the output string if it's a normal character, and a random character if the current letter is `?`. Else if the condition is not met, we will check if the current letter matches the first letter of the queue. If it matches, or the current character is `?` we remove the first charcter from the queue and add it to the output string. After the loop, if the queue is empty then `t` is in `s` and we output the new string.
+
+## E. Triple Operations
+
+-   ### Description
+
+    On the board Ivy wrote down all integers from l to r, inclusive.
+
+    In an operation, she does the following: pick two numbers x
+    and y on the board, erase them, and in their place write the numbers $3x$
+    and $⌊\frac{y}{3}⌋$. (Here ⌊∙⌋ denotes rounding down to the nearest integer). What is the minimum number of operations Ivy needs to make all numbers on the board equal 0?
+
+-   ### Input & Constraints
+
+    The first line contains an integer t
+    $(1≤t≤104)$ — the number of test cases.
+
+    The only line of each test case contains two integers l and r $(1≤l<r≤2⋅105)$
+
+-   ### Output
+
+    For each test case, output a single integer — the minimum number of operations needed to make all numbers on the board equal 0.
+
+-   ### Solution
+
+    The problem requires all number to be 0, which is impossible to do if we apply the $3x$ operations on $x > 0$.
+
+    Therefore, the most straight forward way to resolve this is to turn 1 number to 0 first, then using 0 for the $3x$ operations and using the $\lfloor \frac{y}{3} \rfloor$ operation.
+
+    The least number of operations to turn a number to 0 with the $\lfloor \frac{y}{3} \rfloor$ operation is $\lfloor \log_3(x) \rfloor + 1$.
+
+    To also solve the optimization issue, we can use prefix sum to compute the number of operations for sequence of numbers.
+
+    Then with any `l` and `r`, we can do the prefix sum of `r` $-$ prefix sum of `l` and then add the cost to reduce `l` to zero since `l` is the smallest number in the sequence.
