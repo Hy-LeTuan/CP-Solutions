@@ -1,0 +1,29 @@
+CompileFlags:
+  Add:
+    # Include paths for MinGW
+    - -I"C:/msys64/mingw64/include"
+    - -I"C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.1.0/include"
+    - -I"C:/msys64/mingw64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"
+    - -I"C:/msys64/mingw64/include/c++"
+
+    # Specify the target to mimic GCC's behavior for MinGW
+    - -target
+    - x86_64-w64-mingw32
+
+    # Additional flags to adjust warnings or other settings (optional)
+    # - -Wall
+    # - -Wextra
+    # - -std=c++17
+
+    # Define any necessary macros (optional)
+    # - -DMY_MACRO=1
+
+    # Specify the compiler if needed (optional)
+    # - --gcc-toolchain=C:/MinGW
+    # - -fuse-ld=lld
+
+# You can also include other configurations like indexing options or completion style:
+Index:
+  Background: On
+
+

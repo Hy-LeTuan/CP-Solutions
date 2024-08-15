@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <vector>
 
 using namespace std; 
 
@@ -19,43 +20,21 @@ int main()
 void solve() { 
     int n, k; 
     cin >> n >> k; 
-     
-    int res[500][500]; 
-    int grid[500][500]; 
+	
+	vector<vector<int>> grids(n + 1, vector<int>(n + 1));
 
-    for (int i = 1; i <= n; ++i) { 
-        for (int j = 1; j <= n; ++j) { 
-            char x; 
-            cin >> x; 
-            grid[i][j] = x - '0'; 
-        }
-    }
-
-    if (k == 1) 
-    { 
-        for (int i = 1; i <= n; ++i) { 
-            for (int j = 1; j <= n; ++j) { 
-                cout << grid[i][j]; 
-            }
-            cout << endl; 
-        }
-        return; 
-    }
-
-    for (int i = 1; i <= n / k; i++) { 
-        for (int j = 1; j <= n / k; j++) { 
-            int row = k * i; 
-            int col = k * j; 
-
-            // cout << "Row: " << row << " || " << "Col: " << col << "Value: " << grid[row][col] << endl; 
-            res[i][j] = grid[row][col]; 
-        }
-    }
-
-    for (int i = 1; i <= n / k; i++) { 
-        for (int j = 1; j <= n / k; j++) { 
-            cout << res[i][j]; 
-        }
-        cout << endl; 
-    }
+	for (int i = 1; i <= n; ++i) { 
+		for (int j = 1; j <= n; ++j) { 
+			char c; 
+			cin >> c; 
+			grids[i][j] = c - '0'; 
+		}
+	}
+	
+	for (int i = 1; i <= n; i +=k ) {
+		for (int j = 1; j <= n; j += k) { 
+			cout << grids[i][j]; 
+		} 
+		cout << endl; 
+	} 
 }
