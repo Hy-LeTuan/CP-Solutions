@@ -1,7 +1,6 @@
 #include <iostream> 
 #include <string> 
-#include <algorithm> 
-#include <unordered_map>
+#include <vector> 
 
 using namespace std; 
 
@@ -27,50 +26,56 @@ void solve() {
     getline(cin, a); 
     getline(cin, b); 
 
+	vector<vector<pair<int, int>>> presum(26, vector<pair<int, int>>(n + 1)); 
 
-    for (int i = 0; i < q; ++i) { 
+	for (int i = 0; i < 26; i++) { 
+		presum[i][0].first = 0; 
+		presum[i][0].second = 0; 
+	} 
+	
+	for (int r = 0; r < 26; r++) { 
+		for (int i = 1; i <= n; i++) { 
+			int char_index_a = a[i - 1] - 'a'; 
+			int char_index_b = b[i - 1] - 'a'; 
+
+			if (r == char_index_a && r == char_index_b) { 
+				presum[r][i].first = presum[r][i - 1].first + 1; 
+				presum[r][i].second = presum[r][i - 1].second + 1; 
+			}
+			else if (r == char_index_a) { 
+				presum[r][i].first = presum[r][i - 1].first + 1; 
+				presum[r][i].second = presum[r][i - 1].second;  
+			} 
+			else if (r == char_index_b) { 
+				presum[r][i].second = presum[r][i - 1].second + 1; 
+				presum[r][i].first = presum[r][i - 1].first; 
+			} 
+			else { 
+				presum[r][i].first = presum[r][i - 1].first; 
+				presum[r][i].second = presum[r][i - 1].second; 
+			}
+		} 
+	} 
+
+	// for (int r = 0; r < 26; r++) { 
+		// cout << "Character a " << r << endl; 
+		// for (pair<int, int> x : presum[r]) { 
+			// cout << "A has count: " << x.first << " " << "B has count: " << x.second << endl; 
+		// }
+	// } 
+
+    for (int x = 0; x < q; ++x) { 
         int l, r; 
         cin >> l >> r; 
+		int operations = 0; 
 
-        string sub_b = b.substr(l - 1, (r - l + 1)); 
-        string sub_a = a.substr(l - 1, (r - l + 1)); 
+		for (int i = 0; i < 26; i++) { 
+			int c_count_a = presum[i][r].first - presum[i][l - 1].first; 
+			int c_count_b = presum[i][r].second - presum[i][l - 1].second; 
+			
+			if (c_count_b > c_count_a) operations += (c_count_b - c_count_a); 
+		} 
 
-        unordered_map<char, int> b_char_count = {}; 
-        unordered_map<char, int> a_char_count = {}; 
-
-        int operations = 0; 
-
-        for (int i = 0; i < sub_a.length(); i++) { 
-            char a_char = sub_a[i]; 
-            char b_char = sub_b[i]; 
-
-            if (b_char_count.find(b_char) != b_char_count.end()) { 
-                b_char_count[b_char] += 1; 
-            } else { 
-                b_char_count[b_char] = 1; 
-            }
-
-            if (a_char_count.find(a_char) != a_char_count.end()) { 
-                a_char_count[a_char] += 1; 
-            } else { 
-                a_char_count[a_char] = 1; 
-            }
-        }
-
-        for (const auto& pair : b_char_count) { 
-            char b_char = pair.first; 
-
-            if (a_char_count.find(b_char) == a_char_count.end()) { 
-                operations += b_char_count[b_char]; 
-                // cout << "Character: " << b_char << " added directly to operations value of " << b_char_count[b_char] << endl; 
-            } else { 
-                if (a_char_count[b_char] <= b_char_count[b_char]) { 
-                    operations += (b_char_count[b_char] - a_char_count[b_char]); 
-                    // cout <<"Character: " << b_char << " added by subtractiong " << b_char_count[b_char] << " from " << a_char_count[b_char] << endl; 
-                }
-            }
-        }
-
-        cout << operations << endl; 
+		cout << operations << endl; 
     }
 }
